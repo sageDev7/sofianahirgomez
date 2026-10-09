@@ -77,6 +77,80 @@
   }
 })();
 
+// Desplegables (Áreas de práctica + FAQ) -> abre/cierra animando la altura real con WAAPI.
+// No se puede animar con CSS puro: el navegador oculta/muestra el contenido de <details> de
+// forma nativa e instantánea en el mismo instante en que cambia el atributo "open", lo que
+// deja la primera apertura sin estado inicial del que partir (salta) y el cierre sin tiempo
+// de jugar la transición (también salta). Acá controlamos "open" a mano, en el momento justo.
+(function () {
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var duration = reduceMotion ? 1 : 300;
+
+  function enableSmoothDetails(detailsSelector, contentSelector) {
+    document.querySelectorAll(detailsSelector).forEach(function (details) {
+      var summary = details.querySelector('summary');
+      var content = details.querySelector(contentSelector);
+      if (!summary || !content) return;
+
+      var animation = null;
+      var isClosing = false;
+      var isExpanding = false;
+
+      summary.addEventListener('click', function (e) {
+        e.preventDefault();
+        details.style.overflow = 'hidden';
+        if (isClosing || !details.open) {
+          open();
+        } else if (isExpanding || details.open) {
+          close();
+        }
+      });
+
+      function open() {
+        details.style.height = details.offsetHeight + 'px';
+        details.open = true;
+        window.requestAnimationFrame(function () { expand(); });
+      }
+
+      function expand() {
+        isExpanding = true;
+        var startHeight = details.offsetHeight;
+        var endHeight = summary.offsetHeight + content.offsetHeight;
+        runAnimation(startHeight, endHeight, true);
+      }
+
+      function close() {
+        isClosing = true;
+        var startHeight = details.offsetHeight;
+        var endHeight = summary.offsetHeight;
+        runAnimation(startHeight, endHeight, false);
+      }
+
+      function runAnimation(startHeight, endHeight, willBeOpen) {
+        if (animation) animation.cancel();
+        animation = details.animate(
+          { height: [startHeight + 'px', endHeight + 'px'] },
+          { duration: duration, easing: 'ease-out' }
+        );
+        animation.onfinish = function () { onAnimationFinish(willBeOpen); };
+        animation.oncancel = function () { isClosing = false; isExpanding = false; };
+      }
+
+      function onAnimationFinish(willBeOpen) {
+        details.open = willBeOpen;
+        animation = null;
+        isClosing = false;
+        isExpanding = false;
+        details.style.height = '';
+        details.style.overflow = '';
+      }
+    });
+  }
+
+  enableSmoothDetails('.faq-item', '.faq-a');
+  enableSmoothDetails('.area-expand', '.area-expand-anim');
+})();
+
 // Formulario de contacto -> FormSubmit.co
 (function () {
   var form = document.getElementById('contactForm');
