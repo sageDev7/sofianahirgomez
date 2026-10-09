@@ -57,8 +57,8 @@ h1 .lt, h2 .lt, h3 .lt {
   cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
 .btn-lg { padding: 17px 36px; font-size: .95rem; }
-.btn-primary { background: #1E9E52; color: #fff; }
-.btn-primary:hover { background: transparent; color: #1E9E52; border-color: #1E9E52; }
+.btn-primary { background: #0E5736; color: #fff; }
+.btn-primary:hover { background: #126C42; color: #fff; border-color: #126C42; }
 .btn-outline { background: transparent; color: var(--ink); border-color: var(--hairline); }
 .btn-outline:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
 .btn-header { padding: 11px 22px; font-size: .82rem; flex-shrink: 0; }
@@ -117,7 +117,7 @@ body.inner-page .site-header { background: var(--ink-2); box-shadow: 0 4px 20px 
 }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-bg img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 50% 43%;
+  width: 100%; height: 100%; object-fit: cover; object-position: 60% 46%;
   filter: grayscale(100%) contrast(1.1) brightness(.7);
 }
 .hero-tint {
@@ -266,7 +266,7 @@ body.inner-page .site-header { background: var(--ink-2); box-shadow: 0 4px 20px 
   width: 62px; height: 62px; border-radius: 50%; color: #fff; font-size: 1.5rem;
   box-shadow: 0 6px 18px rgba(0,0,0,.2); transition: opacity .25s ease, transform .2s ease, visibility .25s ease;
 }
-.wa-float { bottom: 22px; background: #1E9E52; opacity: 0; visibility: hidden; }
+.wa-float { bottom: 22px; background: #0E5736; opacity: 0; visibility: hidden; }
 .top-float { bottom: 94px; background: var(--ink); border: 1px solid rgba(255,255,255,.28); opacity: 0; visibility: hidden; }
 .wa-float.visible, .top-float.visible { opacity: 1; visibility: visible; }
 body.inner-page .top-float, body.inner-page .wa-float { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
@@ -306,7 +306,7 @@ body.inner-page .top-float, body.inner-page .wa-float { opacity: 1; visibility: 
   .hero-ctas { flex-direction: column; align-items: center; width: 100%; gap: 14px; }
   .hero-ctas .btn { width: 100%; max-width: 320px; }
   .hero-links { margin-top: 32px; }
-  .hero-bg img { object-position: 38% 43%; }
+  .hero-bg img { object-position: 72% 46%; }
 
   .area-row { grid-template-columns: 1fr; gap: 32px; }
   .area-row .area-item:last-child { grid-column: auto; max-width: 100%; }
